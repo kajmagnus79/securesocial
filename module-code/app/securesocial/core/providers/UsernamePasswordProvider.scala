@@ -53,7 +53,10 @@ class UsernamePasswordProvider(application: Application) extends IdentityProvide
   }
 
   private def badRequest(f: Form[(String,String)], msg: Option[String] = None): PlainResult = {
+    throw new _root_.java.lang.UnsupportedOperationException("securesocial.core.providers.UsernamePasswordProvider.badRequest")
+    /*
     Results.BadRequest(securesocial.views.html.login(ProviderRegistry.all().values, f, msg))
+    */
   }
 
   def fillProfile(user: SocialUser) = {
