@@ -36,20 +36,13 @@ class TwitterProvider(application: Application) extends OAuth1Provider(applicati
       RequestToken(oauthInfo.token, oauthInfo.secret))
     ).get()
 
-    call.await(10000).fold(
-      onError => {
-        Logger.error("[securesocial] timed out waiting for Twitter")
-        throw new AuthenticationException()
-      },
-      response =>
-      {
+    awaitResultOrThrowAuthnException(call, response => {
         val me = response.json
         val userId = (me \ Id).as[Int]
         val name = (me \ Name).as[String]
         val profileImage = (me \ ProfileImage).asOpt[String]
         user.copy(id = UserId(userId.toString, id), fullName = name, avatarUrl = profileImage)
-      }
-    )
+    })
   }
 }
 
