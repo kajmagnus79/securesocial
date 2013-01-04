@@ -17,9 +17,8 @@
 package controllers
 
 import play.api.mvc._
-import securesocial.core.{Identity, Authorization}
 import play.Logger
-// ok remove?: import securesocial.core.{Identity, SecureSocial, SocialUser, Authorization}
+import securesocial.core.{Identity, SecureSocial, SocialUser, Authorization}
 
 object Application extends Controller with securesocial.core.SecureSocial {
 
