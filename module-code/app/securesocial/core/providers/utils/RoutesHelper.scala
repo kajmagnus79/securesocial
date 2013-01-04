@@ -89,8 +89,8 @@ object RoutesHelper {
   }
 
   val assetsControllerMethods = assets.newInstance().asInstanceOf[{
-    def at(file: String): Call
+    def at(directory: String, file: String): Call
   }]
 
-  def at(file: String) = assetsControllerMethods.at(file)
+  def at(directory: String, file: String) = assetsControllerMethods.at(directory, file)
 }
