@@ -89,7 +89,17 @@ object Mailer {
       mail.setSubject(subject)
       mail.addRecipient(recipient)
       mail.addFrom(fromAddress)
-      mail.sendHtml(body)
+      try {
+        mail.sendHtml(body)
+      }
+      catch {
+        case util.control.NonFatal(throwable) =>
+          def cause =
+            if (throwable.getCause eq null) "unknown cause"
+            else s"cause: ${throwable.getCause}"
+          Logger.error(s"Error sending email: $throwable, $cause")
+          throw throwable
+      }
       */
     }
   }
