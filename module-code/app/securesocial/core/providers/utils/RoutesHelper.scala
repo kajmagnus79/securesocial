@@ -25,7 +25,8 @@ import play.Logger
  */
 object RoutesHelper {
   // ProviderController
-  val pc = Class.forName("securesocial.controllers.ReverseProviderController")
+  //val pc = Class.forName("securesocial.controllers.ReverseProviderController")
+  val pc = Class.forName("controllers.ReverseAppLoginSecureSocial")
   val providerControllerMethods = pc.newInstance().asInstanceOf[{
     def authenticateByPost(p: String): Call
     def authenticate(p: String): Call
