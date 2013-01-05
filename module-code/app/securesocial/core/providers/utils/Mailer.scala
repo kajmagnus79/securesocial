@@ -81,11 +81,12 @@ object Mailer {
     }
 
     Akka.system.scheduler.scheduleOnce(1 seconds) {
-      throw new UnsupportedOperationException(
-        "TypeSafe's MailerPlugin not yet available for Scala 2.10? " +
-        "Consider copy-pasting the actual source code into SecureSocial, for now?")
-      /*
-      val mail = use[MailerPlugin].email
+      val mail = //use[MailerPlugin].email // throws java.lang.RuntimeException:
+          // """interface com.typesafe.plugin.MailerPlugin plugin should
+          // be available at this point)""", right now, when I've copy pasted
+          // the plugin source into app/ (so it's not really a plugin right now?).
+          // This works though, for now:
+        new com.typesafe.plugin.CommonsMailerPlugin(Play.current).email
       mail.setSubject(subject)
       mail.addRecipient(recipient)
       mail.addFrom(fromAddress)
@@ -100,7 +101,6 @@ object Mailer {
           Logger.error(s"Error sending email: $throwable, $cause")
           throw throwable
       }
-      */
     }
   }
 }

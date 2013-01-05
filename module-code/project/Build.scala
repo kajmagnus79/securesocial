@@ -14,6 +14,11 @@ object ApplicationBuild extends Build {
       // Is mailer version "2.1-RC1", for Scala 2.10, available anywhere? Right now the code throws
       // an UnsupportedOperationException if you try to use the mailer.
       // "com.typesafe" %% "play-plugins-mailer" % "2.0.4"
+      // -- Instead of the mailer:---------------
+      // "play" %% "play" % playVersion,
+      "org.apache.commons" % "commons-email" % "1.2",
+      // "com.typesafe" %% "play-plugins-util" % "2.1-SNAPSHOT" // already included above
+      // ----------------------------------------
       "org.mindrot" % "jbcrypt" % "0.3m"
     )
 
