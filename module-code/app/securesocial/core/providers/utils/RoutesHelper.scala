@@ -28,7 +28,10 @@ object RoutesHelper {
   lazy val conf = play.api.Play.current.configuration
 
   // ProviderController
-  lazy val pc = Play.application().classloader().loadClass("securesocial.controllers.ReverseProviderController")
+  // [kajmagnus79@debiki] Use Debiki's controller instead; it sets certain cookies and other things.
+  //lazy val pc = Play.application().classloader().loadClass("securesocial.controllers.ReverseProviderController")
+  lazy val pc = Play.application().classloader().loadClass("controllers.ReverseAppLoginSecureSocial")
+
   lazy val providerControllerMethods = pc.newInstance().asInstanceOf[{
     def authenticateByPost(p: String): Call
     def authenticate(p: String): Call
@@ -91,10 +94,15 @@ object RoutesHelper {
   }
 
   lazy val assetsControllerMethods = assets.newInstance().asInstanceOf[{
-    def at(file: String): Call
+    def at(path: String, file: String): Call
   }]
 
-  def at(file: String) = assetsControllerMethods.at(file)
+  // [kajmagnus79@debiki] Add missing `path` parameter, or there's a runtime error:
+  // """java.lang.NoSuchMethodException: controllers.ReverseAssets.at(java.lang.String)"""
+  // because  target/scala-2.10/src_managed/main/routes_reverseRouting.scala
+  // has a function `def at(path:String, file:String)` only, but no `def at(file:String)`
+  // function. — I don't know how this code could even compile before I added "/public"??
+  def at(file: String) = assetsControllerMethods.at("/public", file)
 
 
   val defaultBootstrapCssPath = "securesocial/bootstrap/css/bootstrap.min.css"
