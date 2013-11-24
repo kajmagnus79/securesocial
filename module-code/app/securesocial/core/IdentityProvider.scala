@@ -77,8 +77,11 @@ abstract class IdentityProvider(application: Application) extends Plugin with Re
       u =>
       {
         val user = fillProfile(u)
-        val saved = UserService.save(user)
-        Right(saved)
+        Right(user)
+        //[kajmagnus@debiki] I'm saving the user elsewhere myself instead. Comment this
+        // out so I can remove the UserService plugin & dependency:
+        //val saved = UserService.save(user)
+        //Right(saved)
       }
     )
   }

@@ -30,7 +30,8 @@ object RoutesHelper {
   // ProviderController
   // [kajmagnus79@debiki] Use Debiki's controller instead; it sets certain cookies and other things.
   //lazy val pc = Play.application().classloader().loadClass("securesocial.controllers.ReverseProviderController")
-  lazy val pc = Play.application().classloader().loadClass("controllers.ReverseAppLoginSecureSocial")
+  lazy val pc = Play.application().classloader().loadClass(
+    "controllers.ReverseLoginWithSecureSocialController")
 
   lazy val providerControllerMethods = pc.newInstance().asInstanceOf[{
     def authenticateByPost(p: String): Call
